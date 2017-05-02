@@ -5,15 +5,22 @@
  */
 package view.login;
 
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
-import database.jpa.AccountDetailsJpaController;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import javax.persistence.Persistence;
+
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+
+import database.entities.AccountDetails;
+import database.jpa.AccountDetailsJpaController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javax.persistence.Persistence;
 
 /**
  * FXML Controller class
@@ -22,31 +29,39 @@ import javax.persistence.Persistence;
  */
 public class LoginController implements Initializable {
 
-    @FXML
-    private JFXTextField username;
-    @FXML
-    private JFXPasswordField password;
+	@FXML
+	private JFXTextField username;
+	@FXML
+	private JFXPasswordField password;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
+	// creating a pool for completable future to use
+	private static ExecutorService service = Executors.newCachedThreadPool();
 
-    @FXML
-    private void handleLoginAction(ActionEvent event) {
-        AccountDetailsJpaController admindetails = new AccountDetailsJpaController(
-                Persistence.createEntityManagerFactory("Hospital-Management-System")
-        );
-        System.out.println(admindetails.findAccountDetails(username.getText()).getPassword());
-//        String dbpass = admindetails.findAccountDetails(username.getText()).getPassword(),
-//                pass = password.getText();
-//        if (dbpass.equals(pass)) {
-//            System.out.println("Success");
-//        } else {
-//            System.out.println("Gaand marao");
-//        }
-    }
+	/**
+	 * Initializes the controller class.
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		// TODO
+	}
+
+	@FXML
+	private void handleLoginAction(ActionEvent event) {
+		// run code on a different thread
+		CompletableFuture.runAsync(() -> {
+			String usertext = username.getText();
+			AccountDetailsJpaController admindetails = new AccountDetailsJpaController(
+					Persistence.createEntityManagerFactory("Hospital-Management-System"));
+			AccountDetails details = admindetails.findAccountDetails(usertext);
+			String dbpass = details.getPassword(), pass = password.getText();
+			if (!usertext.isEmpty() && usertext.equals(admindetails.findAccountDetails(usertext).getUsername())
+					&& dbpass.equals(pass)) {
+				// check type of user and go to the corresponding page
+				System.out.println(details.getType());
+			}
+			else {
+				System.out.println("Not success");
+			}
+		}, service);
+	}
 }

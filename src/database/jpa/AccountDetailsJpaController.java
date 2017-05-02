@@ -225,7 +225,11 @@ public class AccountDetailsJpaController implements Serializable {
         try {
             TypedQuery<AccountDetails> query = em.createNamedQuery("AccountDetails.findByUsername", AccountDetails.class);
             return query.setParameter("username", username).getSingleResult();
-        } finally {
+        }
+        catch(Exception e) {
+        	return new AccountDetails();
+        }
+        finally {
             em.close();
         }
     }
