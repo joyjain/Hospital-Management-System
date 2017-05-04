@@ -14,11 +14,13 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import database.entities.AccountDetails;
@@ -28,6 +30,7 @@ import database.jpa.AccountDetailsJpaController;
 import database.jpa.DoctorDetailsJpaController;
 import database.jpa.PatientDetailsJpaController;
 import database.jpa.exceptions.IllegalOrphanException;
+import database.jpa.exceptions.NonexistentEntityException;
 import database.jpa.exceptions.PreexistingEntityException;
 import hospital_management_system.Datastore;
 import javafx.application.Platform;
@@ -63,6 +66,9 @@ public class AdminController implements Initializable {
 	private JFXDialog addDoctor;
 
 	@FXML
+	private JFXSnackbar snackbar;
+
+	@FXML
 	private JFXTextField name;
 
 	@FXML
@@ -82,6 +88,16 @@ public class AdminController implements Initializable {
 
 	@FXML
 	private JFXPasswordField confirmpassword;
+
+	// To change password
+	@FXML
+	private JFXPasswordField opassword;
+
+	@FXML
+	private JFXPasswordField npassword;
+
+	@FXML
+	private JFXPasswordField cpassword;
 
 	@FXML
 	private JFXDialog addPatient;
@@ -145,6 +161,7 @@ public class AdminController implements Initializable {
 		ds = Datastore.getInstance();
 		patientDetails();
 		doctorDetails();
+		snackbar = new JFXSnackbar(stackpane);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -334,6 +351,33 @@ public class AdminController implements Initializable {
 	}
 
 	@FXML
+	private void handleChangePasswordAction(ActionEvent event) {
+		CompletableFuture.runAsync(() -> {
+			AccountDetailsJpaController accountdetails = new AccountDetailsJpaController(
+					Persistence.createEntityManagerFactory("Hospital-Management-System"));
+			if (ds.getAccountdetails().getPassword().equals(opassword.getText())
+					&& npassword.getText().equals(cpassword.getText()) && !npassword.getText().isEmpty()
+					&& !cpassword.getText().isEmpty()) {
+				AccountDetails acc = ds.getAccountdetails();
+				acc.setPassword(npassword.getText());
+				try {
+					accountdetails.edit(acc);
+				} catch (Exception e) {
+					snackbar.enqueue(new SnackbarEvent("Error changing password"));
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					opassword.setText("");
+					npassword.setText("");
+					cpassword.setText("");
+				}
+			} else {
+				snackbar.enqueue(new SnackbarEvent("Incorrect Password Entry"));
+			}
+		}, service);
+	}
+
+	@FXML
 	private void handleCancelDoctorAction(ActionEvent event) {
 		addDoctor.close();
 	}
@@ -364,11 +408,12 @@ public class AdminController implements Initializable {
 			pat.setAge(Integer.parseInt(page.getText()));
 			pat.setWeight(Integer.parseInt(pweight.getText()));
 			pat.setAddress(paddress.getText());
+			pat.setContactNo(Integer.parseInt(pcontactno.getText()));
 			int docid = doctorids.get(pdoctorname.getSelectionModel().getSelectedIndex());
 			pat.setDoctorId(docid);
 			JFXRadioButton chk = (JFXRadioButton) pgender.getSelectedToggle();
 			pat.setGender(chk.getText());
-			pat.setRoomNo("0");
+			pat.setRoomNo("101");
 			pat.setUsername(pusername.getText());
 			pat.setPassword(ppassword.getText());
 			pat.setDisease(pdisease.getText());

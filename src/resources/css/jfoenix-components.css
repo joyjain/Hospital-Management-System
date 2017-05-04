@@ -4,20 +4,20 @@
 }
 /* Burgers Demo */
 .jfx-hamburger {
-	-fx-spacing: 5;
+	-fx-spacing: 5.0;
 	-fx-cursor: hand;
 }
 
 .jfx-hamburger StackPane {
-	-fx-pref-width: 40px;
-	-fx-pref-height: 7px;
+	-fx-pref-width: 40.0px;
+	-fx-pref-height: 7.0px;
 	-fx-background-color: #D63333;
-	-fx-background-radius: 5px;
+	-fx-background-radius: 5.0px;
 }
 
 /* Input Demo */
 .text-field {
-	-fx-max-width: 300;
+	-fx-max-width: 300.0;
 }
 
 .jfx-text-field, .jfx-password-field {
@@ -27,7 +27,7 @@
 	-fx-alignment: top-left;
 	-fx-focus-color: #4059A9;
 	-fx-unfocus-color: #4d4d4d;
-	-fx-max-width: 300;
+	-fx-max-width: 300.0;
 }
 
 .jfx-decorator {
@@ -40,7 +40,7 @@
 
 .jfx-decorator .resize-border {
 	-fx-border-color: -fx-decorator-color;
-	-fx-border-width: 0 4 4 4;
+	-fx-border-width: 0.0 4.0 4.0 4.0;
 }
 
 .jfx-text-area, .text-area {
@@ -61,7 +61,7 @@
 .jfx-text-field .errorIcon, .jfx-password-field .errorIcon,
 	.jfx-text-area .errorIcon {
 	-fx-text-fill: #D34336;
-	-fx-font-size: 1em;
+	-fx-font-size: 1.0em;
 }
 
 /* Progress Bar Demo */
@@ -75,14 +75,14 @@
 
 .jfx-progress-bar {
 	-fx-track-color: #C8C8C8;
-	-fx-progress-color: #673AB7;
+	-fx-progress-color:#3F51B5;
 	/*-fx-stroke-width: 3;*/
 }
 
 /* Icons Demo */
 .icon {
 	-fx-text-fill: #FE774D;
-	-fx-padding: 10;
+	-fx-padding: 10.0;
 	-fx-cursor: hand;
 }
 
@@ -113,26 +113,26 @@
 /* Button */
 .button {
 	-fx-padding: 0.7em 0.57em;
-	-fx-font-size: 14px;
+	-fx-font-size: 14.0px;
 }
 
 .button-raised {
 	-fx-padding: 0.7em 0.57em;
-	-fx-font-size: 14px;
+	-fx-font-size: 14.0px;
 	-fx-button-type: RAISED;
-	-fx-background-color: rgb(77, 102, 204);
-	-fx-pref-width: 200;
+	-fx-background-color: rgb(77.0, 102.0, 204.0);
+	-fx-pref-width: 200.0;
 	-fx-text-fill: WHITE;
 }
 
 .fab-button {
-	-fx-padding: 0;
+	-fx-padding: 0.0;
 	-jfx-button-type: RAISED;
-	-fx-background-color: #F44336;
-	-fx-text-fill: #fff;
-	-fx-font-size: 24px;
-	-fx-border-radius: 50%;
-	-fx-background-radius: 50%;
+	-fx-background-color: #FFC107;
+	-fx-text-fill: #212121;
+	-fx-font-size: 24.0px;
+	-fx-border-radius: 50.0%;
+	-fx-background-radius: 50.0%;
 }
 
 /* The main scrollbar **track** CSS class  */
@@ -140,38 +140,38 @@
 	{
 	-fx-background-color: transparent;
 	-fx-border-color: transparent;
-	-fx-background-radius: 0em;
-	-fx-border-radius: 2em;
+	-fx-background-radius: 0.0em;
+	-fx-border-radius: 2.0em;
 }
 
 /* The increment and decrement button CSS class of scrollbar */
 .mylistview .scroll-bar:horizontal .increment-button, .mylistview .scroll-bar:horizontal .decrement-button
 	{
 	-fx-background-color: transparent;
-	-fx-background-radius: 0em;
-	-fx-padding: 0 0 10 0;
+	-fx-background-radius: 0.0em;
+	-fx-padding: 0.0 0.0 10.0 0.0;
 }
 
 /* The increment and decrement button CSS class of scrollbar */
 .mylistview .scroll-bar:vertical .increment-button, .mylistview .scroll-bar:vertical .decrement-button
 	{
 	-fx-background-color: transparent;
-	-fx-background-radius: 0em;
-	-fx-padding: 0 10 0 0;
+	-fx-background-radius: 0.0em;
+	-fx-padding: 0.0 10.0 0.0 0.0;
 }
 
 .mylistview  .scroll-bar .increment-arrow, .mylistview  .scroll-bar .decrement-arrow
 	{
 	-fx-shape: " ";
-	-fx-padding: 0;
+	-fx-padding: 0.0;
 }
 
 /* The main scrollbar **thumb** CSS class which we drag every time (movable) */
 .mylistview .scroll-bar:horizontal .thumb, .mylistview .scroll-bar:vertical .thumb
 	{
-	-fx-background-color: derive(black, 90%);
-	-fx-background-insets: 2, 0, 0;
-	-fx-background-radius: 2em;
+	-fx-background-color: derive(black, 90.0%);
+	-fx-background-insets: 2.0, 0.0, 0.0;
+	-fx-background-radius: 2.0em;
 }
 
 .jfx-list-cell-container {
@@ -184,7 +184,7 @@
 
 .jfx-list-cell:odd:selected>.jfx-rippler>StackPane, .jfx-list-cell:even:selected>.jfx-rippler>StackPane
 	{
-	-fx-background-color: rgba(0, 0, 255, 0.2);
+	-fx-background-color: rgba(0.0, 0.0, 255.0, 0.2);
 }
 
 .jfx-list-cell {
@@ -205,12 +205,12 @@
 }
 
 .jfx-list-view {
-	-fx-background-insets: 0;
+	-fx-background-insets: 0.0;
 	-fx-cell-horizontal-margin: 0.0;
 	-fx-cell-vertical-margin: 5.0;
-	-fx-vertical-gap: 10;
+	-fx-vertical-gap: 10.0;
 	-fx-expanded: false;
-	-fx-pref-width: 200;
+	-fx-pref-width: 200.0;
 }
 
 .jfx-toggle-button {
@@ -218,17 +218,17 @@
 }
 
 .jfx-tool-bar {
-	-fx-font-size: 20;
+	-fx-font-size: 20.0;
 	-fx-font-weight: BOLD;
 	-fx-background-color: #5264AE;
-	-fx-pref-width: 100%;
-	-fx-pref-height: 64px;
+	-fx-pref-width: 100.0%;
+	-fx-pref-height: 64.0px;
 }
 
 .jfx-tool-bar HBox {
 	-fx-alignment: center;
-	-fx-spacing: 25;
-	-fx-padding: 0 10;
+	-fx-spacing: 25.0;
+	-fx-padding: 0.0 10.0;
 }
 
 .jfx-tool-bar Label {
@@ -241,8 +241,8 @@
 
 .jfx-snackbar-content {
 	-fx-background-color: #323232;
-	-fx-padding: 5;
-	-fx-spacing: 5;
+	-fx-padding: 5.0;
+	-fx-spacing: 5.0;
 }
 
 .jfx-snackbar-toast {
@@ -296,8 +296,8 @@
  * TREE TABLE CSS
  */
 .tree-table-view {
-	-fx-tree-table-color: rgba(255, 0, 0, 0.2);
-	-fx-tree-table-rippler-color: rgba(255, 0, 0, 0.4);
+	-fx-tree-table-color: rgba(255.0, 0.0, 0.0, 0.2);
+	-fx-tree-table-rippler-color: rgba(255.0, 0.0, 0.0, 0.4);
 }
 
 .tree-table-view:focused .tree-table-row-cell:selected {
@@ -321,13 +321,13 @@
 }
 
 .tree-table-view .column-header {
-	-fx-border-width: 0 1 0 1;
+	-fx-border-width: 0.0 1.0 0.0 1.0;
 	-fx-border-color: #F3F3F3;
 }
 
 .tree-table-view .column-header .label {
 	-fx-text-fill: #949494;
-	-fx-padding: 16 0 16 0;
+	-fx-padding: 16.0 0.0 16.0 0.0;
 }
 
 .tree-table-view .column-header .arrow, .tree-table-view .column-header .sort-order-dot
@@ -336,17 +336,17 @@
 }
 
 .tree-table-view .column-header:last-visible {
-	-fx-border-width: 0 2 0 1;
+	-fx-border-width: 0.0 2.0 0.0 1.0;
 }
 
 .tree-table-view .column-header-background {
-	-fx-border-width: 0 0.0 1 0;
+	-fx-border-width: 0.0 0.0 1.0 0.0;
 	-fx-border-color: #F3F3F3;
 }
 
 .tree-table-view .tree-table-cell {
-	-fx-border-width: 0 0 0 0;
-	-fx-padding: 16 0 16 0;
+	-fx-border-width: 0.0 0.0 0.0 0.0;
+	-fx-padding: 16.0 0.0 16.0 0.0;
 }
 
 .tree-table-view .column-overlay {
@@ -361,10 +361,10 @@
 .tree-table-view:focused {
 	-fx-background-color: -fx-tree-table-color, -fx-box-border,
 		-fx-control-inner-background;
-	-fx-background-insets: -1.4, 0, 1;
-	-fx-background-radius: 1.4, 0, 0;
+	-fx-background-insets: -1.4, 0.0, 1.0;
+	-fx-background-radius: 1.4, 0.0, 0.0;
 	/*....*/
-	-fx-padding: 1; /* 0.083333em; */
+	-fx-padding: 1.0; /* 0.083333em; */
 }
 
 .tree-table-row-cell>.tree-disclosure-node>.arrow {
@@ -374,22 +374,22 @@
 }
 
 .tree-table-row-cell .jfx-text-field {
-	-fx-focus-color: rgba(240, 40, 40);
+	-fx-focus-color: rgba(240.0, 40.0, 40.0);
 }
 
 .tree-table-row-group {
-	-fx-background-color: rgba(230, 230, 230);
+	-fx-background-color: rgba(230.0, 230.0, 230.0);
 }
 
 .animated-option-button {
-	-fx-pref-width: 50px;
+	-fx-pref-width: 50.0px;
 	-fx-background-color: #44B449;
-	-fx-background-radius: 50px;
-	-fx-pref-height: 50px;
+	-fx-background-radius: 50.0px;
+	-fx-pref-height: 50.0px;
 	-fx-text-fill: white;
 	-fx-border-color: WHITE;
-	-fx-border-radius: 50px;
-	-fx-border-width: 4px;
+	-fx-border-radius: 50.0px;
+	-fx-border-width: 4.0px;
 }
 
 .animated-option-sub-button {
@@ -397,7 +397,7 @@
 }
 
 .animated-option-sub-button2 {
-	-fx-background-color: rgb(203, 104, 96);
+	-fx-background-color: rgb(203.0, 104.0, 96.0);
 }
 
 .tree-table-view .menu-item:focused {
@@ -405,25 +405,25 @@
 }
 
 .tree-table-view .menu-item .label {
-	-fx-padding: 5 0 5 0;
+	-fx-padding: 5.0 0.0 5.0 0.0;
 }
 
 .jfx-combo-box .combo-box-button-container {
-	-fx-border-color: rgb(180, 180, 180);
-	-fx-border-width: 0 0 2 0;
+	-fx-border-color: rgb(180.0, 180.0, 180.0);
+	-fx-border-width: 0.0 0.0 2.0 0.0;
 }
 
 /**
 Jfx tab pane
 **/
 .jfx-tab-pane .tab-header-background {
-	-fx-background-color: #673AB7;
+	-fx-background-color: #3F51B5;
 }
 
 .jfx-tab-pane .tab-header-area .jfx-rippler {
-	-fx-rippler-fill: #F44336;
+	-fx-rippler-fill: #FFC107;
 }
 
 .jfx-tab-pane .tab-header-area .tab-selected-line {
-	-fx-stroke: #F44336;
+	-fx-stroke: #FFC107;
 }

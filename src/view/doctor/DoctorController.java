@@ -8,14 +8,22 @@ import java.util.concurrent.Executors;
 
 import javax.persistence.Persistence;
 
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
+import database.entities.AccountDetails;
 import database.entities.DoctorDetails;
 import database.entities.PatientDetails;
+import database.jpa.AccountDetailsJpaController;
+import database.jpa.DoctorDetailsJpaController;
 import database.jpa.PatientDetailsJpaController;
+import database.jpa.exceptions.IllegalOrphanException;
+import database.jpa.exceptions.NonexistentEntityException;
 import hospital_management_system.Datastore;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -31,6 +39,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -39,6 +48,9 @@ import javafx.stage.Stage;
  * @author Joy Jain
  */
 public class DoctorController implements Initializable {
+
+	@FXML
+	private Label docname;
 
 	@FXML
 	private Label did;
@@ -53,11 +65,27 @@ public class DoctorController implements Initializable {
 	private Label ddepartment;
 
 	@FXML
+	private JFXSnackbar snackbar;
+
+	@FXML
 	private Label dgender;
 
 	@FXML
+	private AnchorPane root;
+
+	// To change password
+	@FXML
+	private JFXPasswordField opassword;
+
+	@FXML
+	private JFXPasswordField npassword;
+
+	@FXML
+	private JFXPasswordField cpassword;
+
+	@FXML
 	private JFXTreeTableView<Patient> patientTable;
-	
+
 	// run code on a different thread
 	private Datastore ds;
 
@@ -72,11 +100,13 @@ public class DoctorController implements Initializable {
 		ds = Datastore.getInstance();
 		doctorInfo();
 		patientDetails();
+		snackbar = new JFXSnackbar(root);
 	}
 
 	private void doctorInfo() {
 		CompletableFuture.runAsync(() -> {
 			DoctorDetails doc = ds.getAccountdetails().getDoctorDetails();
+			docname.setText(doc.getName());
 			did.setText(doc.getDoctorId().toString());
 			dname.setText(doc.getName());
 			dgender.setText(doc.getGender());
@@ -157,7 +187,8 @@ public class DoctorController implements Initializable {
 						Persistence.createEntityManagerFactory("Hospital-Management-System"));
 				// convert patient details to patient class style
 				ObservableList<Patient> patients = FXCollections.observableArrayList();
-				for (PatientDetails p : patientdetails.findPatientDetailsEntities()) {
+				for (PatientDetails p : patientdetails
+						.findPatientDetailsByDoctorid(ds.getAccountdetails().getDoctorDetails().getDoctorId())) {
 					patients.add(new Patient(p.getPatientId(), p.getName(), p.getAge(), p.getWeight(), p.getGender(),
 							p.getAddress(), p.getContactNo(), p.getDisease()));
 				}
@@ -167,6 +198,37 @@ public class DoctorController implements Initializable {
 				patientTable.getColumns().setAll(idColumn, nameColumn, ageColumn, weightColumn, genderColumn,
 						addressColumn, contactNoColumn, diseaseColumn);
 			});
+		}, service);
+	}
+
+	@FXML
+	private void handleChangePasswordAction(ActionEvent event) {
+		CompletableFuture.runAsync(() -> {
+			AccountDetailsJpaController accountdetails = new AccountDetailsJpaController(
+					Persistence.createEntityManagerFactory("Hospital-Management-System"));
+			DoctorDetailsJpaController doctordetails = new DoctorDetailsJpaController(
+					Persistence.createEntityManagerFactory("Hospital-Management-System"));
+			if (ds.getAccountdetails().getPassword().equals(opassword.getText())
+					&& npassword.getText().equals(cpassword.getText()) && !npassword.getText().isEmpty()
+					&& !cpassword.getText().isEmpty()) {
+				AccountDetails acc = ds.getAccountdetails();
+				DoctorDetails doc = ds.getAccountdetails().getDoctorDetails();
+				acc.setPassword(npassword.getText());
+				try {
+					accountdetails.edit(acc);
+					doctordetails.edit(doc);
+				} catch (Exception e) {
+					snackbar.enqueue(new SnackbarEvent("Error changing password"));
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					opassword.setText("");
+					npassword.setText("");
+					cpassword.setText("");
+				}
+			} else {
+				snackbar.enqueue(new SnackbarEvent("Incorrect Password Entry"));
+			}
 		}, service);
 	}
 

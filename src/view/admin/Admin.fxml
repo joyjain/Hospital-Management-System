@@ -11,6 +11,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
+<?import java.net.URL?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -23,12 +24,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="stackpane" prefHeight="600.0" prefWidth="800.0"
-	stylesheets="@../../resources/css/jfoenix-components.css" xmlns="http://javafx.com/javafx/8.0.111"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.admin.AdminController">
+<StackPane fx:id="stackpane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.admin.AdminController">
 	<children>
-		<JFXDialog fx:id="addDoctor"
-			style="-fx-dialog-transition: CENTER; -fx-background-color: #fff;">
+		<JFXDialog fx:id="addDoctor" style="-fx-dialog-transition: CENTER; -fx-background-color: #fff;">
 			<JFXDialogLayout>
 				<heading>
 					<Label>Register Doctor</Label>
@@ -37,8 +35,7 @@
 					<VBox prefHeight="200.0" prefWidth="100.0">
 						<children>
 							<JFXTextField fx:id="name" promptText="Name" />
-							<JFXTextArea fx:id="address" maxWidth="552.0"
-								minWidth="552.0" prefHeight="90.0" prefWidth="552.0" promptText="Address">
+							<JFXTextArea fx:id="address" maxWidth="552.0" minWidth="552.0" prefHeight="90.0" prefWidth="552.0" promptText="Address">
 								<VBox.margin>
 									<Insets top="10.0" />
 								</VBox.margin>
@@ -65,8 +62,7 @@
 											<ToggleGroup fx:id="gender" />
 										</toggleGroup>
 									</JFXRadioButton>
-									<JFXRadioButton text="Female" selected="false"
-										toggleGroup="$gender" />
+									<JFXRadioButton selected="false" text="Female" toggleGroup="$gender" />
 								</children>
 								<VBox.margin>
 									<Insets top="30.0" />
@@ -82,8 +78,7 @@
 									<Insets top="10.0" />
 								</VBox.margin>
 							</JFXPasswordField>
-							<JFXPasswordField fx:id="confirmpassword"
-								promptText="Confirm Password">
+							<JFXPasswordField fx:id="confirmpassword" promptText="Confirm Password">
 								<VBox.margin>
 									<Insets top="10.0" />
 								</VBox.margin>
@@ -97,13 +92,11 @@
 				<actions>
 					<JFXButton onAction="#handleOkDoctorAction" styleClass="dialog-accept">Create
 					</JFXButton>
-					<JFXButton onAction="#handleCancelDoctorAction"
-						styleClass="dialog-cancel">Cancel</JFXButton>
+					<JFXButton onAction="#handleCancelDoctorAction" styleClass="dialog-cancel">Cancel</JFXButton>
 				</actions>
 			</JFXDialogLayout>
 		</JFXDialog>
-		<JFXDialog fx:id="addPatient"
-			style="-fx-dialog-transition: CENTER; -fx-background-color: #fff;">
+		<JFXDialog fx:id="addPatient" style="-fx-dialog-transition: CENTER; -fx-background-color: #fff;">
 			<JFXDialogLayout>
 				<heading>
 					<Label>Register Patient</Label>
@@ -132,8 +125,7 @@
 									<Insets top="10.0" />
 								</VBox.margin>
 							</JFXTextField>
-							<JFXTextArea fx:id="paddress" maxWidth="552.0"
-								minWidth="552.0" prefHeight="90.0" prefWidth="552.0" promptText="Address">
+							<JFXTextArea fx:id="paddress" maxWidth="552.0" minWidth="552.0" prefHeight="90.0" prefWidth="552.0" promptText="Address">
 								<VBox.margin>
 									<Insets top="10.0" />
 								</VBox.margin>
@@ -150,8 +142,7 @@
 											<ToggleGroup fx:id="pgender" />
 										</toggleGroup>
 									</JFXRadioButton>
-									<JFXRadioButton selected="false" text="Female"
-										toggleGroup="$pgender" />
+									<JFXRadioButton selected="false" text="Female" toggleGroup="$pgender" />
 								</children>
 								<VBox.margin>
 									<Insets top="30.0" />
@@ -167,8 +158,7 @@
 									<Insets top="10.0" />
 								</VBox.margin>
 							</JFXPasswordField>
-							<JFXPasswordField fx:id="pconfirmpassword"
-								promptText="Confirm Password">
+							<JFXPasswordField fx:id="pconfirmpassword" promptText="Confirm Password">
 								<VBox.margin>
 									<Insets top="10.0" />
 								</VBox.margin>
@@ -182,56 +172,40 @@
 				<actions>
 					<JFXButton onAction="#handleOkPatientAction" styleClass="dialog-accept">Create
 					</JFXButton>
-					<JFXButton onAction="#handleCancelPatientAction"
-						styleClass="dialog-cancel">Cancel</JFXButton>
+					<JFXButton onAction="#handleCancelPatientAction" styleClass="dialog-cancel">Cancel</JFXButton>
 				</actions>
 			</JFXDialogLayout>
 		</JFXDialog>
 		<VBox alignment="TOP_CENTER" StackPane.alignment="CENTER">
 			<children>
-				<JFXToolbar style="-fx-background-color: #673AB7;">
+				<JFXToolbar style="-fx-background-color: #3F51B5;">
 					<children>
 						<AnchorPane prefHeight="200.0" prefWidth="200.0" />
 					</children>
 					<right>
-						<JFXButton onAction="#handleLogoutAction"
-							style="-jfx-button-type: RAISED; -fx-background-color: #F44336; -fx-text-fill: #fff;"
-							styleClass="raised-button" text="Logout" BorderPane.alignment="CENTER" />
+						<JFXButton onAction="#handleLogoutAction" style="-jfx-button-type: RAISED; -fx-background-color: #FFC107; -fx-text-fill: #212121;" styleClass="raised-button" text="Logout" BorderPane.alignment="CENTER" />
 					</right>
 					<padding>
 						<Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
 					</padding>
+               <left>
+                  <Label text="Administrator" BorderPane.alignment="CENTER" />
+               </left>
 				</JFXToolbar>
 				<JFXTabPane VBox.vgrow="ALWAYS">
 					<tabs>
-						<Tab closable="false" style="-fx-background-color: #673AB7;"
-							text="Profile">
+						<Tab closable="false" text="Doctors">
 							<content>
-								<AnchorPane minHeight="0.0" minWidth="0.0"
-									prefHeight="180.0" prefWidth="200.0" />
-							</content>
-						</Tab>
-						<Tab closable="false" style="-fx-background-color: #673AB7;"
-							text="Doctors">
-							<content>
-								<AnchorPane maxHeight="1.7976931348623157E308"
-									maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
+								<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
 									<children>
-										<StackPane maxHeight="1.7976931348623157E308"
-											maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0"
-											AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-											AnchorPane.topAnchor="0.0">
+										<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 											<children>
-												<JFXTreeTableView fx:id="doctorTable"
-													style="-fx-text-fill: #fff;">
+												<JFXTreeTableView fx:id="doctorTable" style="-fx-text-fill: #fff;">
 													<columnResizePolicy>
 														<TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 													</columnResizePolicy>
 												</JFXTreeTableView>
-												<JFXButton alignment="CENTER" buttonType="RAISED"
-													ellipsisString="+" onAction="#handleAddDoctorAction"
-													prefHeight="60.0" prefWidth="60.0" styleClass="fab-button"
-													text="+" StackPane.alignment="BOTTOM_RIGHT">
+												<JFXButton alignment="CENTER" buttonType="RAISED" ellipsisString="+" onAction="#handleAddDoctorAction" prefHeight="60.0" prefWidth="60.0" styleClass="fab-button" text="+" StackPane.alignment="BOTTOM_RIGHT">
 													<StackPane.margin>
 														<Insets bottom="25.0" right="25.0" />
 													</StackPane.margin>
@@ -242,26 +216,18 @@
 								</AnchorPane>
 							</content>
 						</Tab>
-						<Tab closable="false" style="-fx-background-color: #673AB7;"
-							text="Patients">
+						<Tab closable="false" text="Patients">
 							<content>
-								<AnchorPane minHeight="0.0" minWidth="0.0"
-									prefHeight="180.0" prefWidth="200.0">
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 									<children>
-										<StackPane maxHeight="1.7976931348623157E308"
-											maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0"
-											AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-											AnchorPane.topAnchor="0.0">
+										<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 											<children>
 												<JFXTreeTableView fx:id="patientTable">
 													<columnResizePolicy>
 														<TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 													</columnResizePolicy>
 												</JFXTreeTableView>
-												<JFXButton alignment="CENTER" buttonType="RAISED"
-													ellipsisString="+" onAction="#handleAddPatientAction"
-													prefHeight="60.0" prefWidth="60.0" styleClass="fab-button"
-													text="+" StackPane.alignment="BOTTOM_RIGHT">
+												<JFXButton alignment="CENTER" buttonType="RAISED" ellipsisString="+" onAction="#handleAddPatientAction" prefHeight="60.0" prefWidth="60.0" styleClass="fab-button" text="+" StackPane.alignment="BOTTOM_RIGHT">
 													<StackPane.margin>
 														<Insets bottom="25.0" right="25.0" />
 													</StackPane.margin>
@@ -270,6 +236,36 @@
 										</StackPane>
 									</children>
 								</AnchorPane>
+							</content>
+						</Tab>
+						<Tab closable="false" text="Profile">
+							<content>
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <VBox layoutX="269.0" layoutY="51.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <padding>
+                                    <Insets left="16.0" top="16.0" />
+                                 </padding>
+                                 <children>
+                                    <JFXPasswordField fx:id="opassword" promptText="Old Password" />
+                                    <JFXPasswordField fx:id="npassword" promptText="New Password">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </JFXPasswordField>
+                                    <JFXPasswordField fx:id="cpassword" promptText="Confirm Password">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </JFXPasswordField>
+                                    <JFXButton buttonType="RAISED" onAction="#handleChangePasswordAction" style="-fx-background-color: #3F51B5;" text="Change Password" textFill="WHITE">
+                                       <VBox.margin>
+                                          <Insets left="80.0" top="20.0" />
+                                       </VBox.margin>
+                                    </JFXButton>
+                                 </children>
+                              </VBox>
+                           </children></AnchorPane>
 							</content>
 						</Tab>
 					</tabs>
@@ -277,4 +273,8 @@
 			</children>
 		</VBox>
 	</children>
+   <stylesheets>
+      <URL value="@../../resources/css/jfoenix-components.css" />
+      <URL value="@../../resources/css/jfoenix-main-demo.css" />
+   </stylesheets>
 </StackPane>
