@@ -70,7 +70,7 @@ public class DoctorController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		doctorInfo();
-		// patientDetails();
+		 patientDetails();
 	}
 
 	private void doctorInfo() {
