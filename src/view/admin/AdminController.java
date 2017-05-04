@@ -2,8 +2,6 @@ package view.admin;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
@@ -12,18 +10,16 @@ import java.util.concurrent.Executors;
 
 import javax.persistence.Persistence;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
-import com.jfoenix.controls.JFXTextArea;
 
 import database.entities.AccountDetails;
 import database.entities.DoctorDetails;
@@ -52,8 +48,6 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import view.admin.AdminController.Doctor;
-import view.login.LoginController;
 
 /**
  * FXML Controller class
@@ -94,25 +88,25 @@ public class AdminController implements Initializable {
 
 	@FXML
 	private JFXTextField pname;
-	
+
 	@FXML
 	private JFXTextField page;
-	
+
 	@FXML
 	private JFXTextField pweight;
-	
+
 	@FXML
 	private ToggleGroup pgender;
 
 	@FXML
 	private JFXTextArea paddress;
-	
+
 	@FXML
 	private JFXTextField pcontactno;
-	
+
 	@FXML
 	private JFXComboBox<Label> pdoctorname;
-	
+
 	@FXML
 	private JFXTextField pdisease;
 
@@ -136,7 +130,7 @@ public class AdminController implements Initializable {
 
 	// run code on a different thread
 	private Datastore ds;
-	
+
 	// doctor id list
 	private List<Integer> doctorids;
 
@@ -153,6 +147,7 @@ public class AdminController implements Initializable {
 		doctorDetails();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void doctorDetails() {
 		JFXTreeTableColumn<Doctor, Integer> idColumn = new JFXTreeTableColumn<>("Id");
 		idColumn.setPrefWidth(20);
@@ -195,7 +190,7 @@ public class AdminController implements Initializable {
 				return genderColumn.getComputedValue(param);
 		});
 		CompletableFuture.runAsync(() -> {
-			doctorids = new ArrayList();
+			doctorids = new ArrayList<Integer>();
 			DoctorDetailsJpaController doctordetails = new DoctorDetailsJpaController(
 					Persistence.createEntityManagerFactory("Hospital-Management-System"));
 			// convert doctor details to doctor class style
@@ -213,6 +208,7 @@ public class AdminController implements Initializable {
 		}, service);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void patientDetails() {
 		JFXTreeTableColumn<Patient, Integer> idColumn = new JFXTreeTableColumn<>("Id");
 		idColumn.setPrefWidth(20);
@@ -332,13 +328,15 @@ public class AdminController implements Initializable {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				addDoctor.close();
 			}
 		}, service);
 	}
 
 	@FXML
 	private void handleCancelDoctorAction(ActionEvent event) {
-
+		addDoctor.close();
 	}
 
 	@FXML
@@ -386,13 +384,15 @@ public class AdminController implements Initializable {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				addPatient.close();
 			}
 		}, service);
 	}
 
 	@FXML
 	private void handleCancelPatientAction(ActionEvent event) {
-
+		addPatient.close();
 	}
 
 	@FXML
@@ -402,16 +402,17 @@ public class AdminController implements Initializable {
 
 	@FXML
 	private void handleLogoutAction(ActionEvent event) {
-		Datastore ds = Datastore.getInstance();
-		Stage stage = ds.getPrimaryStage();
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/view/login/Login.fxml"));
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		Platform.runLater(() -> {
+			Stage stage = ds.getPrimaryStage();
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("/view/login/Login.fxml"));
+				Scene scene = new Scene(root);
+				stage.setScene(scene);
+				stage.show();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		});
 	}
 
 	/*

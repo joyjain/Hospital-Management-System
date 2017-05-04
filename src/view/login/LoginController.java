@@ -64,8 +64,7 @@ public class LoginController implements Initializable {
 	@FXML
 	private void handleLoginAction(ActionEvent event) {
 		// run code on a different thread
-		Datastore ds = Datastore.getInstance();
-		Stage stage = ds.getPrimaryStage();
+		Stage stage = Datastore.getPrimaryStage();
 		progress.setVisible(true);
 		CompletableFuture.runAsync(() -> {
 			String usertext = username.getText();

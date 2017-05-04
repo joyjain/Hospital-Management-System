@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.doctor.DoctorController">
+   <children>
+      <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXToolbar style="-fx-background-color: #673AB7;">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+               </children>
+               <right>
+                  <JFXButton onAction="#handleLogoutAction" style="-jfx-button-type: RAISED; -fx-background-color: #F44336; -fx-text-fill: #fff;" styleClass="raised-button" text="Logout" BorderPane.alignment="CENTER" />
+               </right>
+               <padding>
+                  <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+               </padding>
+            </JFXToolbar>
+            <JFXTabPane VBox.vgrow="ALWAYS">
+               <tabs>
+                  <Tab closable="false" style="-fx-background-color: #673AB7;" text="Profile">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="408.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label prefWidth="100.0" text="Id">
+                                             <padding>
+                                                <Insets left="16.0" right="16.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label fx:id="did" text="45" />
+                                       </children>
+                                       <padding>
+                                          <Insets top="16.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label prefWidth="100.0" text="Name">
+                                             <padding>
+                                                <Insets left="16.0" right="16.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label fx:id="dname" text="Joy" />
+                                       </children>
+                                       <padding>
+                                          <Insets top="16.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label prefWidth="100.0" text="Address">
+                                             <padding>
+                                                <Insets left="16.0" right="16.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label fx:id="daddress" text="some at a bs venue" />
+                                       </children>
+                                       <padding>
+                                          <Insets top="16.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label prefWidth="100.0" text="Department">
+                                             <padding>
+                                                <Insets left="16.0" right="16.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label fx:id="ddepartment" text="Dentist" />
+                                       </children>
+                                       <padding>
+                                          <Insets top="16.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label prefWidth="100.0" text="Gender">
+                                             <padding>
+                                                <Insets left="16.0" right="16.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label fx:id="dgender" text="Male" />
+                                       </children>
+                                       <padding>
+                                          <Insets top="16.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets top="16.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab closable="false" style="-fx-background-color: #673AB7;" text="Patients">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <JFXTreeTableView fx:id="patientTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <columnResizePolicy>
+                                    <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </JFXTreeTableView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </JFXTabPane>
+         </children>
+         <stylesheets>
+            <URL value="@../../resources/css/jfoenix-components.css" />
+            <URL value="@../../resources/css/jfoenix-main-demo.css" />
+         </stylesheets>
+      </VBox>
+   </children>
+</AnchorPane>
