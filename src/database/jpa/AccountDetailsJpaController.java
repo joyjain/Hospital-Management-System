@@ -23,7 +23,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author Sanjay Kumar Jain
+ * @author Joy Jain
  */
 public class AccountDetailsJpaController implements Serializable {
 

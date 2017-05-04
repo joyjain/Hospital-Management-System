@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 /**
  *
  * @author Joy Jain
@@ -21,20 +20,25 @@ import javafx.stage.Stage;
 public class Hospital_management_system extends Application {
 	@Override
 	public void start(Stage primaryStage) {
+		// also pass reference to the datastore for later use
+		Datastore ds = Datastore.getInstance();
+		ds.setPrimaryStage(primaryStage);
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/view/login/Login.fxml"));
 			Scene scene = new Scene(root);
-//			Scene scene = new Scene(root,400,400);
-//			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			// set size
+			// Scene scene = new Scene(root,400,400);
+//			scene.getStylesheets()
+//					.add(getClass().getResource("/resources/css/jfoenix-components.css").toExternalForm());
+//			scene.getStylesheets().add(getClass().getResource("/resources/css/jfoenix-main-demo.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
 }
-
