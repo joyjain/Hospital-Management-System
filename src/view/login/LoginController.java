@@ -49,6 +49,8 @@ public class LoginController implements Initializable {
 	private VBox vbox;
 	@FXML
 	private JFXProgressBar progress;
+	// run code on a different thread
+	private Datastore ds;
 
 	// creating a pool for completable future to use
 	private static ExecutorService service = Executors.newCachedThreadPool();
@@ -59,12 +61,13 @@ public class LoginController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		snackbar = new JFXSnackbar(vbox);
+		ds = Datastore.getInstance();
 	}
 
 	@FXML
 	private void handleLoginAction(ActionEvent event) {
 		// run code on a different thread
-		Stage stage = Datastore.getPrimaryStage();
+		Stage stage = ds.getPrimaryStage();
 		progress.setVisible(true);
 		CompletableFuture.runAsync(() -> {
 			String usertext = username.getText();
@@ -72,12 +75,12 @@ public class LoginController implements Initializable {
 					Persistence.createEntityManagerFactory("Hospital-Management-System"));
 			AccountDetails details = admindetails.findAccountDetails(usertext);
 			String dbpass = details.getPassword(), pass = password.getText();
+			// store in data store
+			ds.setAccountdetails(details);
 			if (!usertext.isEmpty() && usertext.equals(admindetails.findAccountDetails(usertext).getUsername())
 					&& dbpass.equals(pass)) {
 				// check type of user and go to the corresponding page
-				Platform.runLater(() -> {
-					showPage(stage, details.getType());
-				});
+				showPage(stage, details.getType());
 			} else {
 				snackbar.enqueue(new SnackbarEvent("Incorrect Username or Password"));
 				progress.setVisible(false);
@@ -86,15 +89,17 @@ public class LoginController implements Initializable {
 	}
 
 	private void showPage(Stage stage, String type) {
-		try {
-			Parent root = FXMLLoader
-					.load(getClass().getResource(String.format("/view/%s/%s.fxml", type, capsFirst(type))));
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		Platform.runLater(() -> {
+			try {
+				Parent root = FXMLLoader
+						.load(getClass().getResource(String.format("/view/%s/%s.fxml", type, capsFirst(type))));
+				Scene scene = new Scene(root);
+				stage.setScene(scene);
+				stage.show();
+			} catch (Exception e) {
+				System.err.println(e);
+			}
+		});
 	}
 
 	private String capsFirst(String input) {

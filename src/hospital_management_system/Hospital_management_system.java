@@ -21,7 +21,7 @@ public class Hospital_management_system extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		// also pass reference to the datastore for later use
-		Datastore.setPrimaryStage(primaryStage);
+		Datastore.getInstance().setPrimaryStage(primaryStage);
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/view/login/Login.fxml"));
 			Scene scene = new Scene(root);

@@ -57,7 +57,7 @@ public class DoctorController implements Initializable {
 
 	@FXML
 	private JFXTreeTableView<Patient> patientTable;
-
+	
 	// run code on a different thread
 	private Datastore ds;
 
@@ -69,13 +69,14 @@ public class DoctorController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		ds = Datastore.getInstance();
 		doctorInfo();
-		 patientDetails();
+		patientDetails();
 	}
 
 	private void doctorInfo() {
 		CompletableFuture.runAsync(() -> {
-			DoctorDetails doc = Datastore.getAccountdetails().getDoctorDetails();
+			DoctorDetails doc = ds.getAccountdetails().getDoctorDetails();
 			did.setText(doc.getDoctorId().toString());
 			dname.setText(doc.getName());
 			dgender.setText(doc.getGender());
@@ -84,6 +85,7 @@ public class DoctorController implements Initializable {
 		}, service);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void patientDetails() {
 		JFXTreeTableColumn<Patient, Integer> idColumn = new JFXTreeTableColumn<>("Id");
 		idColumn.setPrefWidth(20);
@@ -150,20 +152,22 @@ public class DoctorController implements Initializable {
 				return diseaseColumn.getComputedValue(param);
 		});
 		CompletableFuture.runAsync(() -> {
-			PatientDetailsJpaController patientdetails = new PatientDetailsJpaController(
-					Persistence.createEntityManagerFactory("Hospital-Management-System"));
-			// convert patient details to patient class style
-			ObservableList<Patient> patients = FXCollections.observableArrayList();
-			for (PatientDetails p : patientdetails.findPatientDetailsEntities()) {
-				patients.add(new Patient(p.getPatientId(), p.getName(), p.getAge(), p.getWeight(), p.getGender(),
-						p.getAddress(), p.getContactNo(), p.getDisease()));
-			}
-			patients.add(new Patient(1, "yolo", 25, 67, "female", "ysds", 123456789, "typhoid"));
-			// build tree
-			patientTable.setRoot(new RecursiveTreeItem<Patient>(patients, RecursiveTreeObject::getChildren));
-			patientTable.setShowRoot(false);
-			patientTable.getColumns().setAll(idColumn, nameColumn, ageColumn, weightColumn, genderColumn, addressColumn,
-					contactNoColumn, diseaseColumn);
+			Platform.runLater(() -> {
+				PatientDetailsJpaController patientdetails = new PatientDetailsJpaController(
+						Persistence.createEntityManagerFactory("Hospital-Management-System"));
+				// convert patient details to patient class style
+				ObservableList<Patient> patients = FXCollections.observableArrayList();
+				for (PatientDetails p : patientdetails.findPatientDetailsEntities()) {
+					patients.add(new Patient(p.getPatientId(), p.getName(), p.getAge(), p.getWeight(), p.getGender(),
+							p.getAddress(), p.getContactNo(), p.getDisease()));
+				}
+				patients.add(new Patient(1, "yolo", 25, 67, "female", "ysds", 123456789, "typhoid"));
+				// build tree
+				patientTable.setRoot(new RecursiveTreeItem<Patient>(patients, RecursiveTreeObject::getChildren));
+				patientTable.setShowRoot(false);
+				patientTable.getColumns().setAll(idColumn, nameColumn, ageColumn, weightColumn, genderColumn,
+						addressColumn, contactNoColumn, diseaseColumn);
+			});
 		}, service);
 	}
 
