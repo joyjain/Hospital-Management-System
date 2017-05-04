@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Sanjay Kumar Jain
+ * @author Joy Jain
  */
 @Entity
 @Table(name = "doctor_details", uniqueConstraints = {

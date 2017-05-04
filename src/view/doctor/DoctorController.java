@@ -161,7 +161,6 @@ public class DoctorController implements Initializable {
 					patients.add(new Patient(p.getPatientId(), p.getName(), p.getAge(), p.getWeight(), p.getGender(),
 							p.getAddress(), p.getContactNo(), p.getDisease()));
 				}
-				patients.add(new Patient(1, "yolo", 25, 67, "female", "ysds", 123456789, "typhoid"));
 				// build tree
 				patientTable.setRoot(new RecursiveTreeItem<Patient>(patients, RecursiveTreeObject::getChildren));
 				patientTable.setShowRoot(false);

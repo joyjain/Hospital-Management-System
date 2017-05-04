@@ -19,7 +19,7 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Sanjay Kumar Jain
+ * @author Joy Jain
  */
 public class RoomDetailsJpaController implements Serializable {
 
